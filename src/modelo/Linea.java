@@ -9,8 +9,8 @@ public class Linea {
   private int numLinea;
 
   private ArrayList<Asignacion> asignaciones;
-  private ArrayList<Veterano> veteranos;
-  private ArrayList<Bus> bus;
+  private ArrayList<ConductorVeterano> conductorVeteranos;
+  private ArrayList<Autobus> bus;
 
   public Linea(int numLinea) {
     this.numLinea = numLinea;

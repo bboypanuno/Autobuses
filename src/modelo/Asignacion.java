@@ -1,21 +1,19 @@
 package modelo;
 
-/**
- * Created by poo2 on 17/05/2016.
- */
+
 public class Asignacion {
   private float horas;
 
-  private Practicas practicas;
+  private ConductorPracticas conductorPracticas;
   private Linea linea;
 
-  public Asignacion(float horas, Practicas practicas, Linea linea) throws Exception {
-    if (horas <= 100){
+  public Asignacion(float horas, ConductorPracticas conductorPracticas, Linea linea) throws Exception {
+    if (horas <= 100 || conductorPracticas == null || linea == null){
       throw new Exception();
     }
 
     this.horas = horas;
-    this.practicas = practicas;
+    this.conductorPracticas = conductorPracticas;
     this.linea = linea;
   }
 }

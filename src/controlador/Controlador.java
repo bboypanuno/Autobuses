@@ -10,7 +10,7 @@ public class Controlador {
   private HashMap<String, Conductor> conductores = new HashMap();
 
 
-  public void addConductor(String dni, String nombre) {
+  public void addConductor(String dni, String nombre) throws Exception {
     this.conductores.put(dni, new Conductor(dni, nombre));
   }
 
