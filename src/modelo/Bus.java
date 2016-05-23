@@ -6,17 +6,17 @@ import java.util.ArrayList;
  * Creado por Andrés
  */
 
-public class Buses {
+public class Bus {
   private String  matricula;
   private int plazas;
 
-  private Lineas lineas;
+  private Linea linea;
   private ArrayList<BusTurno> busTurnos;
 
-  public Buses(String matricula, int plazas, Lineas lineas) {
+  public Bus(String matricula, int plazas, Linea linea) {
     this.matricula = matricula;
     this.plazas = plazas;
-    this.lineas = lineas;
+    this.linea = linea;
 
     busTurnos = new ArrayList<>();
   }

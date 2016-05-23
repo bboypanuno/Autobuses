@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Practicas extends Conductor {
 
-  private ArrayList<Lineas> lineas;
+  private ArrayList<Linea> lineas;
 
   public Practicas(String dni, String nombre) {
     super(dni, nombre);
