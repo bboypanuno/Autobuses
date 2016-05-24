@@ -1,9 +1,16 @@
 package vista;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+import static  javax.swing.JOptionPane.showMessageDialog;
+
+import controlador.Controlador;
+
 import javax.swing.*;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 /**
  * 24/05/2016
@@ -13,10 +20,14 @@ import java.awt.event.ActionListener;
 
 
 public class VistaGrafica extends JFrame implements ActionListener { //
+  private Controlador controlador;
   private JTextField texto;
+  private Scanner entrada;
 
   public VistaGrafica() {
     super("Autobuses");  // se le puede pasar un string o ningun parametro
+    controlador = new Controlador();
+    this.entrada = new Scanner(System.in);
     setSize(500, 600);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // se cierra la app cada vez k le demos a cerrar
@@ -51,12 +62,20 @@ public class VistaGrafica extends JFrame implements ActionListener { //
 
   public static void main(String[] args) {
     VistaGrafica marco = new VistaGrafica();
-    Vista vis = new Vista();
-    vis.Menu();
+    // marco.Vista.Menu();
+
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    System.out.println(texto.getText());  // imprimos el texto clickando al boton
+    try {
+      controlador.addLinea(Integer.parseInt(texto.getText()));
+      showMessageDialog(this, "Guardado"); // this ligado a la ventana, null ligado a la pantalla
+    } catch (Exception error) {
+      //System.out.println("error");
+      showMessageDialog(this, "Error al introducir datos");
+    }
+    //System.out.println(Integer.parseInt(texto.getText());  // imprimos el texto clickando al boton
+
   }
 }
