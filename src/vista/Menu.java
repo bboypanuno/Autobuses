@@ -35,6 +35,7 @@ public class Menu extends JFrame implements ActionListener {
 
     salirButton.addActionListener(this);
     lineasButton.addActionListener(new AccionLineaNueva());
+    autobusesButton.addActionListener(new AccionNuevoAutobus());
   }
 
   {
@@ -89,6 +90,13 @@ public class Menu extends JFrame implements ActionListener {
    */
   public JComponent $$$getRootComponent$$$() {
     return menu;
+  }
+  private class AccionNuevoAutobus implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      new Autobus("Nuevo Autobus", contrl);
+    }
   }
 
   private class AccionLineaNueva implements ActionListener {
