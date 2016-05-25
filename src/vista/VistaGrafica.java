@@ -56,6 +56,7 @@ public class VistaGrafica extends JFrame implements ActionListener { //
     boton.setSize(100, 100);
     add(boton);
     boton.addActionListener(this);
+    // en un metodo estatico nunca se puede referenciar a un this porque hace referencia a los atributos
 
     setVisible(true); //  se crea una ventana
   }
