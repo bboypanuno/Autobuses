@@ -1,17 +1,14 @@
 package vista;
 
+import static javax.swing.JOptionPane.showMessageDialog;
 import controlador.Controlador;
+import modelo.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static javax.swing.JOptionPane.showMessageDialog;
-
-/**
- * Created by Andres on 25/05/2016.
- */
 public class Autobus extends JFrame implements ActionListener {
   private JPanel autobus;
   private JTextField textMatr;
@@ -22,6 +19,7 @@ public class Autobus extends JFrame implements ActionListener {
   private JPanel panel1;
   private JPanel panel2;
   private JPanel panel3;
+  private JComboBox comboBoxLinea;
 
   public static void main(String[] args) {
     Autobus bus = new Autobus("Autobus", new Controlador());
@@ -31,15 +29,16 @@ public class Autobus extends JFrame implements ActionListener {
     super(titulo);
 
     controlador = control;
-
+    
     setContentPane(autobus);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();
-    setSize(300, 300);
+    setSize(400, 300);
     setLocationRelativeTo(null);
     setVisible(true);
 
     addBus.addActionListener(this);
+    comboBoxLinea.getItemListeners();
   }
 
   @Override
@@ -108,13 +107,6 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.anchor = GridBagConstraints.WEST;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     autobus.add(textPlz, gbc);
-    textLinea = new JTextField();
-    gbc = new GridBagConstraints();
-    gbc.gridx = 3;
-    gbc.gridy = 5;
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    autobus.add(textLinea, gbc);
     final JPanel spacer4 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
@@ -226,6 +218,15 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.ipadx = 100;
     autobus.add(panel3, gbc);
     panel3.setBorder(BorderFactory.createTitledBorder("Linea"));
+    comboBoxLinea = new JComboBox();
+    final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+    comboBoxLinea.setModel(defaultComboBoxModel1);
+    gbc = new GridBagConstraints();
+    gbc.gridx = 3;
+    gbc.gridy = 5;
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    autobus.add(comboBoxLinea, gbc);
   }
 
   /**

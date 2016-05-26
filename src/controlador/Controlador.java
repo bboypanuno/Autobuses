@@ -21,6 +21,10 @@ public class Controlador {
     this.autobuses = new HashMap<>();
   }
 
+  public HashMap<Integer, Linea> getLineas() {
+    return lineas;
+  }
+
   public void addConductor(String dni, String nombre) throws Exception {
     this.conductores.put(dni, new Conductor(dni, nombre));
   }

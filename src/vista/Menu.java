@@ -28,6 +28,7 @@ public class Menu extends JFrame implements ActionListener {
     setContentPane(menu);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
+    setSize(200, 150);
     setLocationRelativeTo(null);
     setVisible(true);
 
@@ -59,30 +60,72 @@ public class Menu extends JFrame implements ActionListener {
     lineasButton.setText("Lineas");
     GridBagConstraints gbc;
     gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 0;
+    gbc.gridx = 1;
+    gbc.gridy = 1;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(lineasButton, gbc);
     final JPanel spacer1 = new JPanel();
     gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 0;
+    gbc.gridx = 2;
+    gbc.gridy = 1;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer1, gbc);
     autobusesButton = new JButton();
     autobusesButton.setText("Autobuses");
     gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 1;
+    gbc.gridx = 1;
+    gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(autobusesButton, gbc);
     salirButton = new JButton();
     salirButton.setText("Salir");
     gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(salirButton, gbc);
+    final JPanel spacer2 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.fill = GridBagConstraints.VERTICAL;
+    menu.add(spacer2, gbc);
+    final JPanel spacer3 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer3, gbc);
+    final JPanel spacer4 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 2;
+    gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer4, gbc);
+    final JPanel spacer5 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 2;
+    gbc.gridy = 2;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer5, gbc);
+    final JPanel spacer6 = new JPanel();
+    gbc = new GridBagConstraints();
     gbc.gridx = 0;
     gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
-    menu.add(salirButton, gbc);
+    menu.add(spacer6, gbc);
+    final JPanel spacer7 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer7, gbc);
+    final JPanel spacer8 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 4;
+    gbc.fill = GridBagConstraints.VERTICAL;
+    menu.add(spacer8, gbc);
   }
 
   /**
@@ -91,11 +134,12 @@ public class Menu extends JFrame implements ActionListener {
   public JComponent $$$getRootComponent$$$() {
     return menu;
   }
+
   private class AccionNuevoAutobus implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      new Autobus("Nuevo Autobus", contrl);
+      new Autobus("Nuevo Autobus", contrl, new JComboBox<>());
     }
   }
 
