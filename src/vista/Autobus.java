@@ -14,14 +14,14 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class Autobus extends JFrame implements ActionListener {
   private JPanel autobus;
-  private JButton matricula;
-  private JButton linea;
-  private JButton plazas;
   private JTextField textMatr;
   private JTextField textPlz;
   private JTextField textLinea;
   private JButton addBus;
   private Controlador controlador;
+  private JPanel panel1;
+  private JPanel panel2;
+  private JPanel panel3;
 
   public static void main(String[] args) {
     Autobus bus = new Autobus("Autobus", new Controlador());
@@ -39,16 +39,18 @@ public class Autobus extends JFrame implements ActionListener {
     setLocationRelativeTo(null);
     setVisible(true);
 
-    matricula.addActionListener(this);
-    plazas.addActionListener(this);
-    linea.addActionListener(this);
-   // addBus.addActionListener(controlador.addAutobus);
+    addBus.addActionListener(this);
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     try {
-      controlador.addAutobus(matricula.getText(), Integer.parseInt(plazas.getText()), Integer.parseInt(linea.getText()));
+      String m = textMatr.getText();
+      String pl = textPlz.getText();
+      int plazas = Integer.parseInt(pl);
+      String l = textLinea.getText();
+      int linea = Integer.parseInt(l);
+      controlador.addAutobus(m, plazas, linea);
       showMessageDialog(this, "Datos introducidos");
     } catch (Exception error) {
       showMessageDialog(this, "Error al introducir datos");
@@ -72,15 +74,8 @@ public class Autobus extends JFrame implements ActionListener {
   private void $$$setupUI$$$() {
     autobus = new JPanel();
     autobus.setLayout(new GridBagLayout());
-    matricula = new JButton();
-    matricula.setText("Matricula");
-    GridBagConstraints gbc;
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    autobus.add(matricula, gbc);
     final JPanel spacer1 = new JPanel();
+    GridBagConstraints gbc;
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
     gbc.gridy = 1;
@@ -92,20 +87,6 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.gridy = 2;
     gbc.fill = GridBagConstraints.VERTICAL;
     autobus.add(spacer2, gbc);
-    plazas = new JButton();
-    plazas.setText("Plazas");
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 3;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    autobus.add(plazas, gbc);
-    linea = new JButton();
-    linea.setText("Linea");
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 5;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    autobus.add(linea, gbc);
     final JPanel spacer3 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 1;
@@ -220,6 +201,31 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.gridy = 8;
     gbc.fill = GridBagConstraints.VERTICAL;
     autobus.add(spacer16, gbc);
+    panel1 = new JPanel();
+    panel1.setLayout(new GridBagLayout());
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.BOTH;
+    autobus.add(panel1, gbc);
+    panel1.setBorder(BorderFactory.createTitledBorder("Matricula"));
+    panel2 = new JPanel();
+    panel2.setLayout(new GridBagLayout());
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.BOTH;
+    autobus.add(panel2, gbc);
+    panel2.setBorder(BorderFactory.createTitledBorder("Plazas"));
+    panel3 = new JPanel();
+    panel3.setLayout(new GridBagLayout());
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 5;
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.ipadx = 100;
+    autobus.add(panel3, gbc);
+    panel3.setBorder(BorderFactory.createTitledBorder("Linea"));
   }
 
   /**
