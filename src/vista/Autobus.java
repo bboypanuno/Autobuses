@@ -2,7 +2,6 @@ package vista;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import controlador.Controlador;
-import modelo.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +12,12 @@ public class Autobus extends JFrame implements ActionListener {
   private JPanel autobus;
   private JTextField textMatr;
   private JTextField textPlz;
-  private JTextField textLinea;
   private JButton addBus;
   private Controlador controlador;
-  private JPanel panel1;
   private JPanel panel2;
+  private JComboBox<Integer> comboBoxLinea;
+  private JTextArea panel1;
   private JPanel panel3;
-  private JComboBox comboBoxLinea;
 
   public static void main(String[] args) {
     Autobus bus = new Autobus("Autobus", new Controlador());
@@ -29,16 +27,19 @@ public class Autobus extends JFrame implements ActionListener {
     super(titulo);
 
     controlador = control;
-    
+
     setContentPane(autobus);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pack();
     setSize(400, 300);
     setLocationRelativeTo(null);
     setVisible(true);
+    Integer[] lineas = controlador.listarLineas();
+    for (Integer i : lineas) {
+      comboBoxLinea.addItem(i);
+    }
 
     addBus.addActionListener(this);
-    comboBoxLinea.getItemListeners();
   }
 
   @Override
@@ -47,9 +48,8 @@ public class Autobus extends JFrame implements ActionListener {
       String m = textMatr.getText();
       String pl = textPlz.getText();
       int plazas = Integer.parseInt(pl);
-      String l = textLinea.getText();
-      int linea = Integer.parseInt(l);
-      controlador.addAutobus(m, plazas, linea);
+      Integer l = (Integer) comboBoxLinea.getSelectedItem();
+      controlador.addAutobus(m, plazas, l);
       showMessageDialog(this, "Datos introducidos");
     } catch (Exception error) {
       showMessageDialog(this, "Error al introducir datos");
@@ -193,14 +193,6 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.gridy = 8;
     gbc.fill = GridBagConstraints.VERTICAL;
     autobus.add(spacer16, gbc);
-    panel1 = new JPanel();
-    panel1.setLayout(new GridBagLayout());
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.BOTH;
-    autobus.add(panel1, gbc);
-    panel1.setBorder(BorderFactory.createTitledBorder("Matricula"));
     panel2 = new JPanel();
     panel2.setLayout(new GridBagLayout());
     gbc = new GridBagConstraints();
@@ -209,15 +201,6 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.fill = GridBagConstraints.BOTH;
     autobus.add(panel2, gbc);
     panel2.setBorder(BorderFactory.createTitledBorder("Plazas"));
-    panel3 = new JPanel();
-    panel3.setLayout(new GridBagLayout());
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 5;
-    gbc.fill = GridBagConstraints.BOTH;
-    gbc.ipadx = 100;
-    autobus.add(panel3, gbc);
-    panel3.setBorder(BorderFactory.createTitledBorder("Linea"));
     comboBoxLinea = new JComboBox();
     final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
     comboBoxLinea.setModel(defaultComboBoxModel1);
@@ -227,6 +210,21 @@ public class Autobus extends JFrame implements ActionListener {
     gbc.anchor = GridBagConstraints.WEST;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     autobus.add(comboBoxLinea, gbc);
+    panel1 = new JTextArea();
+    panel1.setText("MatriculaLineas");
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.BOTH;
+    autobus.add(panel1, gbc);
+    panel3 = new JPanel();
+    panel3.setLayout(new GridBagLayout());
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 5;
+    gbc.fill = GridBagConstraints.BOTH;
+    autobus.add(panel3, gbc);
+    panel3.setBorder(BorderFactory.createTitledBorder("Lineas"));
   }
 
   /**

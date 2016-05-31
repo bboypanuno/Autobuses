@@ -1,12 +1,16 @@
 package vista;
 
-import static javax.swing.JOptionPane.showMessageDialog;
 import controlador.Controlador;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.io.FileNotFoundException;
+
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 /**
  * Created by poo2 on 25/05/2016.
@@ -16,13 +20,15 @@ public class Menu extends JFrame implements ActionListener {
   private JButton autobusesButton;
   private JButton salirButton;
   private JPanel menu;
+  private JButton guardarLinea;
   private Controlador contrl;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     Menu menu = new Menu("Menu");
   }
 
-  public Menu(String titulo) {
+
+  public Menu(String titulo) throws Exception {
     super(titulo);
 
     setContentPane(menu);
@@ -30,13 +36,17 @@ public class Menu extends JFrame implements ActionListener {
     pack();
     setSize(200, 150);
     setLocationRelativeTo(null);
-    setVisible(true);
 
     contrl = new Controlador();
+
+    guardarLinea.addActionListener(new AccionGuardarLineas());
 
     salirButton.addActionListener(this);
     lineasButton.addActionListener(new AccionLineaNueva());
     autobusesButton.addActionListener(new AccionNuevoAutobus());
+
+    setVisible(true);
+
   }
 
   {
@@ -61,27 +71,28 @@ public class Menu extends JFrame implements ActionListener {
     GridBagConstraints gbc;
     gbc = new GridBagConstraints();
     gbc.gridx = 1;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.ipadx = 80;
     menu.add(lineasButton, gbc);
     final JPanel spacer1 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer1, gbc);
     autobusesButton = new JButton();
     autobusesButton.setText("Autobuses");
     gbc = new GridBagConstraints();
     gbc.gridx = 1;
-    gbc.gridy = 2;
+    gbc.gridy = 3;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(autobusesButton, gbc);
     salirButton = new JButton();
     salirButton.setText("Salir");
     gbc = new GridBagConstraints();
     gbc.gridx = 1;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(salirButton, gbc);
     final JPanel spacer2 = new JPanel();
@@ -93,39 +104,58 @@ public class Menu extends JFrame implements ActionListener {
     final JPanel spacer3 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 0;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer3, gbc);
     final JPanel spacer4 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer4, gbc);
     final JPanel spacer5 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
-    gbc.gridy = 2;
+    gbc.gridy = 3;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer5, gbc);
     final JPanel spacer6 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 0;
-    gbc.gridy = 2;
+    gbc.gridy = 3;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer6, gbc);
     final JPanel spacer7 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 0;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     menu.add(spacer7, gbc);
     final JPanel spacer8 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 1;
-    gbc.gridy = 4;
+    gbc.gridy = 5;
     gbc.fill = GridBagConstraints.VERTICAL;
     menu.add(spacer8, gbc);
+    guardarLinea = new JButton();
+    guardarLinea.setText("Guarda Lineas");
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(guardarLinea, gbc);
+    final JPanel spacer9 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer9, gbc);
+    final JPanel spacer10 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 2;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    menu.add(spacer10, gbc);
   }
 
   /**
@@ -135,11 +165,24 @@ public class Menu extends JFrame implements ActionListener {
     return menu;
   }
 
+  private class AccionGuardarLineas extends Component implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      try {
+        contrl.guardarLinea();
+        showMessageDialog(this, "datos introducidos");
+      } catch (FileNotFoundException e1) {
+        showMessageDialog(this, "Error al introducir datos");
+      }
+    }
+  }
+
   private class AccionNuevoAutobus implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      new Autobus("Nuevo Autobus", contrl, new JComboBox<>());
+      new Autobus("Nuevo Autobus", contrl);
     }
   }
 

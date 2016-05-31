@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
@@ -8,6 +9,8 @@ import modelo.Autobus;
 import modelo.Conductor;
 import modelo.Linea;
 import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
+import java.io.File;
+import java.io.PrintWriter;
 
 public class Controlador {
 
@@ -21,10 +24,19 @@ public class Controlador {
     this.autobuses = new HashMap<>();
   }
 
-  public HashMap<Integer, Linea> getLineas() {
-    return lineas;
+  public Integer[] listarLineas() {
+    return lineas.keySet().toArray(new Integer[0]);
   }
 
+  public  void guardarLinea() throws FileNotFoundException {
+    PrintWriter pw = new PrintWriter(new File("lineas.txt"));
+
+    for(int l: listarLineas()) {
+      pw.println(l);
+    }
+    pw.close();
+
+  }
   public void addConductor(String dni, String nombre) throws Exception {
     this.conductores.put(dni, new Conductor(dni, nombre));
   }
@@ -37,7 +49,7 @@ public class Controlador {
     this.lineas.put(numLinea, new Linea(numLinea));
   }
 
-  public void addAutobus(String matricula, int plazas, int numLinea) throws Exception {
+  public void addAutobus(String matricula, int plazas, Integer numLinea) throws Exception {
     Linea linea = this.lineas.get(numLinea);
     if (linea == null) {
       throw new Exception();
