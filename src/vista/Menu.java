@@ -6,15 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.io.FileNotFoundException;
 
-import static javax.swing.JOptionPane.showMessageDialog;
-
-
-/**
- * Created by poo2 on 25/05/2016.
- */
 public class Menu extends JFrame implements ActionListener {
   private JButton lineasButton;
   private JButton autobusesButton;
@@ -39,7 +31,6 @@ public class Menu extends JFrame implements ActionListener {
 
     contrl = new Controlador();
 
-    guardarLinea.addActionListener(new AccionGuardarLineas());
 
     salirButton.addActionListener(this);
     lineasButton.addActionListener(new AccionLineaNueva());
@@ -137,13 +128,6 @@ public class Menu extends JFrame implements ActionListener {
     gbc.gridy = 5;
     gbc.fill = GridBagConstraints.VERTICAL;
     menu.add(spacer8, gbc);
-    guardarLinea = new JButton();
-    guardarLinea.setText("Guarda Lineas");
-    gbc = new GridBagConstraints();
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    menu.add(guardarLinea, gbc);
     final JPanel spacer9 = new JPanel();
     gbc = new GridBagConstraints();
     gbc.gridx = 0;
@@ -163,19 +147,6 @@ public class Menu extends JFrame implements ActionListener {
    */
   public JComponent $$$getRootComponent$$$() {
     return menu;
-  }
-
-  private class AccionGuardarLineas extends Component implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      try {
-        contrl.guardarLinea();
-        showMessageDialog(this, "datos introducidos");
-      } catch (FileNotFoundException e1) {
-        showMessageDialog(this, "Error al introducir datos");
-      }
-    }
   }
 
   private class AccionNuevoAutobus implements ActionListener {

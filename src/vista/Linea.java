@@ -37,11 +37,13 @@ public class Linea extends JFrame implements ActionListener {
     setVisible(true);
 
     addLineaButton.addActionListener(this); // es this el objeto es de aqui
+    addLineaButton.
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     try {
+
       ctrl.addLinea(Integer.parseInt(numLinea.getText()));
       showMessageDialog(this, "Datos introducidos");
     } catch (Exception error) {

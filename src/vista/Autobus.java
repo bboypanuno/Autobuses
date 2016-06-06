@@ -50,6 +50,7 @@ public class Autobus extends JFrame implements ActionListener {
       int plazas = Integer.parseInt(pl);
       Integer l = (Integer) comboBoxLinea.getSelectedItem();
       controlador.addAutobus(m, plazas, l);
+
       showMessageDialog(this, "Datos introducidos");
     } catch (Exception error) {
       showMessageDialog(this, "Error al introducir datos");

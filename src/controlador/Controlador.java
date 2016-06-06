@@ -1,6 +1,10 @@
 package controlador;
 
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,6 +21,7 @@ public class Controlador {
   private HashMap<String, Conductor> conductores;
   private HashMap<Integer, Linea> lineas;
   private HashMap<String, Autobus> autobuses;
+  private Connection conn = null;
 
   public Controlador() {
     this.conductores = new HashMap<>();
@@ -28,25 +33,49 @@ public class Controlador {
     return lineas.keySet().toArray(new Integer[0]);
   }
 
-  public  void guardarLinea() throws FileNotFoundException {
-    PrintWriter pw = new PrintWriter(new File("lineas.txt"));
+  public  void guardarLinea() throws SQLException {
 
-    for(int l: listarLineas()) {
-      pw.println(l);
-    }
-    pw.close();
+    conn = DriverManager.getConnection(
+        "jdbc:mysql://localhost/personas?useSSL=false&serverTimezone=CET", // para evitar warning conexion ssl
+        "root",
+        "");
+    // Pas 2: creacion de la consulta
+    String consultaSql =  "INSERT INTO linea VALUE('1')";
+    Statement sentencia = conn.createStatement();
 
+    sentencia.execute(consultaSql);
+    System.out.println("Consulta ejecutada con exito");
+
+    //rs.close();
+    sentencia.close();
+    conn.close();
   }
   public void addConductor(String dni, String nombre) throws Exception {
     this.conductores.put(dni, new Conductor(dni, nombre));
   }
+  public void GuardarAutobus() throws SQLException {
+     conn = DriverManager.getConnection(
+         "jdbc:mysql://localhost/personas?useSSL=false&serverTimezone=CET", // para evitar warning conexion ssl
+         "root",
+         "");
+     // Pas 2: creacion de la consulta
+     String consultaSql =  "INSERT INTO autobus VALUES ('1234ABC', 55, 2)";
+     Statement sentencia = conn.createStatement();
+
+     sentencia.execute(consultaSql);
+     System.out.println("Consulta ejecutada con exito");
+
+     //rs.close();
+     sentencia.close();
+     conn.close();
+   }
 
   public void addLinea(int numLinea) throws Exception {
     if (lineas.get(numLinea) != null) {
       throw new Exception();
     }
-
     this.lineas.put(numLinea, new Linea(numLinea));
+    guardarLinea();
   }
 
   public void addAutobus(String matricula, int plazas, Integer numLinea) throws Exception {

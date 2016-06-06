@@ -121,7 +121,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Dar de alta Autobus"/>
+          <text value="z"/>
         </properties>
       </component>
       <vspacer id="39f97">
